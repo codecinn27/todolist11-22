@@ -6,31 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/task_name"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            tools:text="@string/task_name" />
-
-        <TextView
-            android:id="@+id/task_description"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            tools:text="@string/task_desc" />
-
-
-    </LinearLayout>
+        android:id="@+id/todolistRecyclerView"
+        android:backgroundTint="@color/design_default_color_primary_dark"></androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/newTaskButton"
@@ -38,12 +18,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:padding="5dp"
         android:textColor="@color/design_default_color_on_primary"
         app:icon="@drawable/ic_baseline_add_24"
         app:iconTint="@color/design_default_color_on_primary"
-        tools:text="@string/new_task" />
+        android:text="@string/new_task" />
 
 
 </RelativeLayout>

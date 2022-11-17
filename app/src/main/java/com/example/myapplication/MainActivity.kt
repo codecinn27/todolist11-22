@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,15 +21,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         binding.newTaskButton.setOnClickListener {
-            newTaskSheet().show(supportFragmentManager,"newTaskTag")
+            newTaskSheet(null).show(supportFragmentManager,"newTaskTag")
         }
 
-        taskViewModel.name.observe(this){
-            binding.taskName.text = String.format("Task Name: %s", it)
-        }
+        setRecyclerView()
 
-        taskViewModel.description.observe(this){
-            binding.taskDescription.text = String.format("Task Name: %s", it)
+    }
+
+    private fun setRecyclerView() {
+        val mainActivity = this
+        taskViewModel.taskItem.observe(this){
+            binding.todolistRecyclerView.apply {
+                layoutManager = LinearLayoutManager(applicationContext)
+                adapter = TaskItemAdapter(it)
+            }
         }
     }
 }
