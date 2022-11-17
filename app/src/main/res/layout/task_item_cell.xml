@@ -22,7 +22,7 @@
             android:id="@+id/completButton"
             android:layout_marginHorizontal="15dp"
             android:backgroundTint="@android:color/transparent"
-            android:src="@drawable/ic_baseline_radio_button_unchecked_24"/>
+            app:srcCompat="@drawable/ic_baseline_radio_button_unchecked_24"/>
 
         <TextView
             android:layout_width="wrap_content"

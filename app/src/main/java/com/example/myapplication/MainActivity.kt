@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +12,9 @@ class MainActivity : AppCompatActivity(), TaskItemListener {
 
     private lateinit var binding: ActivityMainBinding
 //    must follow the name dont simply name
-    private lateinit var taskViewModel: TaskViewModel
+    private val taskViewModel: TaskViewModel by viewModels {
+        TaskItemModelFactory((application as ToDoApplication).repository)
+}
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +22,7 @@ class MainActivity : AppCompatActivity(), TaskItemListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+
         binding.newTaskButton.setOnClickListener {
             newTaskSheet(null).show(supportFragmentManager,"newTaskTag")
         }

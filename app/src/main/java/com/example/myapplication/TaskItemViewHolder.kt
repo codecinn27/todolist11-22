@@ -31,8 +31,8 @@ class TaskItemViewHolder( private val context: Context, private val binding: Tas
             clickListener.editTaskItem(taskItem)
         }
 
-        if(taskItem.dueTime != null)
-            binding.dueTime.text = timeFormat.format(taskItem.dueTime)
+        if(taskItem.dueTime() != null)
+            binding.dueTime.text = timeFormat.format(taskItem.dueTime())
         else
             binding.dueTime.text = ""
     }

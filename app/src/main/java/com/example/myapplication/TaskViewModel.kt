@@ -1,42 +1,42 @@
 package com.example.myapplication
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.myapplication.databinding.FragmentNewTaskSheetBinding
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalTime
 import java.util.UUID
 
-class TaskViewModel : ViewModel() {
+class TaskViewModel(private val repository: TaskItemRepository) : ViewModel() {
 
-    var taskItem = MutableLiveData<MutableList<ClassItem>>()
+    var taskItem: LiveData<List<ClassItem>> = repository.allTaskItem.asLiveData()
 
-    init{
-        taskItem.value = mutableListOf()
+
+    fun addTaskItem(newTask: ClassItem) = viewModelScope.launch {
+        repository.insertTaskItem(newTask)
     }
 
-    fun addTaskItem(newTask: ClassItem){
-        val list = taskItem.value
-        list!!.add(newTask)
-        taskItem.postValue(list)
+    fun updateTaskItem(taskItem: ClassItem) =viewModelScope.launch{
+        repository.updateTaskItem(taskItem)
     }
 
-    fun updateTaskItem(id: UUID, name: String, desc:String, dueTime: LocalTime?){
-        val list = taskItem.value
-        val task = list!!.find{ it.id == id }!!
-        task.name = name
-        task.desc = desc
-        task.dueTime =dueTime
-        taskItem.postValue(list)
+    fun setCompleted(taskItem: ClassItem) =viewModelScope.launch{
+        if(!taskItem.isCompleted())
+            taskItem.completedDateString = ClassItem.dateFormmater.format(LocalDate.now())
+
+        repository.updateTaskItem(taskItem)
     }
 
-    fun setCompleted(taskItems: ClassItem){
-//        must be different name in the attribute dont overwrite it
-        val list = taskItem.value
-        val task = list!!.find{ it.id == taskItems.id}!!
-        if(task.completeDate== null)
-            task.completeDate = LocalDate.now()
-        taskItem.postValue(list)
+}
+
+class TaskItemModelFactory(private val repository: TaskItemRepository): ViewModelProvider.Factory{
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(TaskViewModel::class.java))
+            return TaskViewModel(repository) as T
+
+        throw IllegalAccessException("Unknown Class for View Model")
+
     }
 }
