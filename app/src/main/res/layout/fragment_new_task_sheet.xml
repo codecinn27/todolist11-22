@@ -50,11 +50,23 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:text="@string/select_timer"
+        android:id="@+id/timerPickerButton"
+        android:backgroundTint="@color/design_default_color_primary"
+        android:textColor="@color/design_default_color_on_primary"/>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
         android:text="@string/save" />
+
+
 
 </LinearLayout>

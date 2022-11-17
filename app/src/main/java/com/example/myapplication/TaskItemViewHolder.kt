@@ -18,7 +18,7 @@ class TaskItemViewHolder( private val context: Context, private val binding: Tas
 
         if(taskItem.isCompleted()){
             binding.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            binding.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            binding.dueTime.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         }
 
         binding.completButton.setImageResource(taskItem.imageResource())
